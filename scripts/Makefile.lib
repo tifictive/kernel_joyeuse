@@ -268,7 +268,11 @@ cmd_gzip = (cat $(filter-out FORCE,$^) | gzip -n -f -9 > $@) || \
 
 # DTC
 # ---------------------------------------------------------------------------
-DTC ?= $(objtree)/scripts/dtc/dtc
+ifneq ($(DTC_EXT),)
+      DTC = $(DTC_EXT)
+else
+      DTC ?= $(objtree)/scripts/dtc-aosp/dtc-aosp
+endif
 
 # Disable noisy checks by default
 ifeq ($(KBUILD_ENABLE_EXTRA_GCC_CHECKS),)
@@ -279,7 +283,9 @@ DTC_FLAGS += -Wno-simple_bus_reg \
 	-Wno-unit_address_format \
 	-Wno-pci_bridge \
 	-Wno-pci_device_bus_num \
-	-Wno-pci_device_reg
+	-Wno-pci_device_reg \
+	-Wno-avoid_default_addr_size \
+        -Wno-reg_format
 endif
 
 ifeq ($(KBUILD_ENABLE_EXTRA_GCC_CHECKS),2)
@@ -307,12 +313,6 @@ cmd_dt_S_dtb=						\
 $(obj)/%.dtb.S: $(obj)/%.dtb
 	$(call cmd,dt_S_dtb)
 
-ifneq ($(DTC_EXT),)
-DTC = $(DTC_EXT)
-else
-DTC = $(objtree)/scripts/dtc/dtc
-endif
-
 quiet_cmd_dtc = DTC     $@
 cmd_dtc = mkdir -p $(dir ${dtc-tmp}) ; \
 	$(CPP) $(dtc_cpp_flags) -x assembler-with-cpp -o $(dtc-tmp) $< ; \
@@ -325,6 +325,16 @@ $(obj)/%.dtb: $(src)/%.dts FORCE
 	$(call if_changed_dep,dtc)
 
 dtc-tmp = $(subst $(comma),_,$(dot-target).dts.tmp)
+
+# mkdtimg
+#----------------------------------------------------------------------------
+quiet_cmd_mkdtimg = DTBOIMG $@
+cmd_mkdtimg = python2 $(srctree)/scripts/mkdtboimg.py create $@ --page_size=4096 $(filter-out FORCE,$^)
+
+# make dtb
+#----------------------------------------------------------------------------
+quiet_cmd_mkdtb = DTB     $@
+cmd_mkdtb = cat $(filter-out FORCE,$^) > $@
 
 # cat
 # ---------------------------------------------------------------------------
