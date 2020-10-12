@@ -113,7 +113,6 @@ ifdef CONFIG_SND_SOC_MSM_QDSP6V2_INTF
 	Q6_OBJS += msm_audio_ion.o
 	Q6_OBJS += avtimer.o
 	Q6_OBJS += q6_init.o
-	Q6_OBJS += apr_elliptic.o
 endif
 
 ifdef CONFIG_SND_SOC_MSM_QDSP6V2_VM
@@ -133,7 +132,6 @@ ifdef CONFIG_SND_SOC_MSM_QDSP6V2_VM
 	Q6_OBJS += msm_audio_ion_vm.o
 	Q6_OBJS += avtimer.o
 	Q6_OBJS += q6_init.o
-	Q6_OBJS += apr_elliptic.o
 endif
 
 ifdef CONFIG_XT_LOGGING
