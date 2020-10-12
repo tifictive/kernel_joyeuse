@@ -1,4 +1,16 @@
 # How to compile kernel for Redmi Note 9 Pro (joyeuse)
+## Intro
+This source code already contains WiFi and Audio drivers that were not included in the original Xiaomi code.
+Also, added [AOSP Device Tree Compiler (DTC)](https://android.googlesource.com/platform/external/dtc/+/refs/heads/android10-release) 
+to compile DTB and DTBO trees.
+### Features
+Differences from stock are minimal:
+* Removed incompatible architectures
+* TTL target support
+* Some TCP congestion-avoidance algorithms
+* CPU frequency statistics for the schedutil governor
+* Various minor changes
+
 ## 1. Downloading
 Create a working folder, for example `kernel`:
 ```bash
@@ -67,4 +79,4 @@ Also remove the lines from `# begin ramdisk changes` to `# end ramdisk changes`.
 Place the files `Image.gz`, `dtbo.img` and `dtb` where the script is located and repack all the contents of the folder into a zip archive.
 
 ### Flashing
-Reboot into recovery mode and flash (or recovery) the stock kernel. Then install our zip archive. Reboot into the system.
+Reboot into recovery mode, backup the `boot` and `dtbo` partitions. Then install our zip archive. Reboot into the system.
