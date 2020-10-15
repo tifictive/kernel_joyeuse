@@ -978,7 +978,7 @@ static int tas2562_i2c_probe(struct i2c_client *p_client,
 					n_result);
 		goto err;
 	} else {
-		dev_err(&p_client->dev, "Failed to allocate register p_tas2562->regmap: %x\n",p_tas2562->regmap);
+		dev_err(&p_client->dev, "Allocate register p_tas2562->regmap: %x successfully\n",p_tas2562->regmap);
 	}
 
 	if (p_client->dev.of_node) {
@@ -1197,19 +1197,7 @@ static struct i2c_driver tas2562_i2c_driver = {
 	.id_table   = tas2562_i2c_id,
 };
 
-static int __init tas2526_init(void)
-{
-       return i2c_add_driver(&tas2562_i2c_driver);
-}
-
-static void __exit tas2526_exit(void)
-{
-       i2c_del_driver(&tas2562_i2c_driver);
-       return;
-}
-late_initcall(tas2526_init);
-module_exit(tas2526_exit);
-
+module_i2c_driver(tas2562_i2c_driver);
 MODULE_AUTHOR("Texas Instruments Inc.");
 MODULE_DESCRIPTION("TAS2562 I2C Smart Amplifier driver");
 MODULE_LICENSE("GPL v2");

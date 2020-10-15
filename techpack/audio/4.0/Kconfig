@@ -82,3 +82,7 @@ config AUXPCM_DISABLE
     tristate "AUXPCM_DISABLE"
 config DIGITAL_CDC_RSC_MGR
     tristate "DIGITAL_CDC_RSC_MGR"
+config SND_SOC_TAS2562
+    tristate "TAS2562 Amp"
+config TAS25XX_ALGO
+    tristate "TAS25XX Algorithm "
