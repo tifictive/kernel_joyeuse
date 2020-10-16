@@ -1791,7 +1791,7 @@ int lct_nvt_tp_palm_callback(bool en)
 		goto exit;
 	}
 	set_lct_tp_palm_status(en);
-	NVT_LOG("%S PALM",en ? "Disable" : "Enable");
+	NVT_LOG("%s PALM",en ? "Disable" : "Enable");
 
 exit:
 	return 0;

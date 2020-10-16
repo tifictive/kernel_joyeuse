@@ -80,7 +80,7 @@ int getOffsetFrame(u16 address, u16 *offset)
 
 	if (readCmdU16(cmd, address, data, OFFSET_LENGTH,
 		DUMMY_FRAMEBUFFER) < 0) {
-		logError(1, "%s %S: ERROR %02X\n", tag, __func__, ERROR_I2C_R);
+		logError(1, "%s %s: ERROR %02X\n", tag, __func__, ERROR_I2C_R);
 		return ERROR_I2C_R;
 	}
 
