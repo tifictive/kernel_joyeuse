@@ -69,12 +69,12 @@ scm_version()
 		fi
 
 		# Is this git on svn?
-		if git config --get svn-remote.svn.url >/dev/null; then
+		if [ -n "`git config --get svn-remote.svn.url >/dev/null`" ]; then
 			printf -- '-svn%s' "`git svn find-rev $head`"
 		fi
 
 		# Check for uncommitted changes
-		if git diff-index --name-only HEAD | grep -qv "^scripts/package"; then
+		if [ -n "`git diff-index --name-only HEAD | grep -qv "^scripts/package"`" ]; then
 			printf '%s' -dirty
 		fi
 
